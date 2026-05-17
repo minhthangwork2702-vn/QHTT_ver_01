@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+    <form method="POST">
+
+        <label>Hệ số hàm mục tiêu</label>
+        <input
+            type="text"
+            name="objective"
+            placeholder="Ví dụ: 3,2"
+            required
+        >
+
+        <label>Loại hàm mục tiêu</label>
+        <select name="objective_type" required>
+            <option value="max">max</option>
+            <option value="min">min</option>
+        </select>
+
+        <label>Ràng buộc</label>
+
+        <textarea
+            name="constraints"
+            placeholder="Mỗi dòng:
+1,1,<=,4
+2,1,<=,5"
+            required
+        ></textarea>
+
+        <button type="submit">Giải</button>
+
+    </form>
+
+    {% if result %}
+    <div class="result">
+
+        <h2>Giá trị tối ưu</h2>
+
+        <p>
+            Giá trị tối ưu:
+            <strong>{{ result.optimal_value }}</strong>
+        </p>
+
+        <h3>Nghiệm</h3>
+
+        <ul>
+            {% for v in result.variables %}
+                <li>x{{ loop.index }} = {{ v }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">
+        {{ error }}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
